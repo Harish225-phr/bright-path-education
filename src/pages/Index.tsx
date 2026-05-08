@@ -12,24 +12,27 @@ import ContactSection from "@/components/ContactSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
+import { SiteContentProvider } from "@/components/SiteContentProvider";
 
 const Index = () => (
-  <main>
-    <Navbar />
-    <HeroSection />
-    <AboutSection />
-    <ProgramsSection />
-    <WhyChooseUs />
-    <FacilitiesSection />
-    <AdmissionSection />
-    <GallerySection />
-    <TestimonialsSection />
-    <AchievementsSection />
-    <ContactSection />
-    <FAQSection />
-    <Footer />
-    <FloatingButtons />
-  </main>
+  <SiteContentProvider>
+    <main>
+      <Navbar />
+      <HeroSection />
+      <AboutSection />
+      <ProgramsSection />
+      <WhyChooseUs />
+      <FacilitiesSection />
+      <AdmissionSection />
+      <GallerySection />
+      <TestimonialsSection />
+      <AchievementsSection />
+      <ContactSection />
+      <FAQSection />
+      <Footer />
+      <FloatingButtons />
+    </main>
+  </SiteContentProvider>
 );
 
 export default Index;

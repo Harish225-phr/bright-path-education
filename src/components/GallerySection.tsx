@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { useSiteContent } from "./SiteContentProvider";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -8,7 +9,7 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
 
-const images = [
+const fallbackImages = [
   { src: gallery1, alt: "Students learning" },
   { src: gallery2, alt: "Smart classroom" },
   { src: gallery3, alt: "Playground activities" },
@@ -18,7 +19,9 @@ const images = [
 ];
 
 const GallerySection = () => {
+  const { content } = useSiteContent();
   const [current, setCurrent] = useState(0);
+  const images = content.gallery.images.length > 0 ? content.gallery.images : fallbackImages;
 
   const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
   const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
@@ -28,9 +31,9 @@ const GallerySection = () => {
       <div className="container mx-auto">
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <span className="mb-2 inline-block text-sm font-semibold uppercase tracking-wider text-primary">Gallery</span>
+            <span className="mb-2 inline-block text-sm font-semibold uppercase tracking-wider text-primary">{content.gallery.eyebrow}</span>
             <h2 className="mb-8 font-heading text-3xl font-bold text-foreground md:text-4xl">
-              Life at Our School
+              {content.gallery.title}
             </h2>
           </div>
         </ScrollReveal>
