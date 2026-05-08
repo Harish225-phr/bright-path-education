@@ -69,6 +69,11 @@ export type SiteContent = {
     title: string;
     items: Array<{ q: string; a: string }>;
   };
+  programsList?: Array<{ title: string; slug?: { current?: string }; excerpt?: string; featured?: boolean }>;
+  testimonialsList?: Array<{ name: string; role: string; text: string; rating?: number }>;
+  galleryImages?: Array<{ image?: string; alt?: string; caption?: string }>;
+  teachersList?: Array<{ name: string; title?: string; bio?: string; photoUrl?: string }>;
+  eventsList?: Array<{ title: string; date?: string; location?: string; description?: string; signupUrl?: string }>;
 };
 
 export const defaultSiteContent: SiteContent = {
@@ -200,6 +205,16 @@ export const siteContentQuery = `*[_type == "siteSettings"][0]{
   contact,
   faq
 }`;
+
+export const programsListQuery = `*[_type == "program"]{title, slug, excerpt, featured, "thumbnailUrl": thumbnail.asset->url}`;
+
+export const testimonialsListQuery = `*[_type == "testimonial"]{name, role, text, rating}`;
+
+export const galleryImagesQuery = `*[_type == "galleryImage"]{"imageUrl": image.asset->url, alt, caption, category}`;
+
+export const teachersListQuery = `*[_type == "teacher"]{name, title, bio, "photoUrl": photo.asset->url, email, phone}`;
+
+export const eventsListQuery = `*[_type == "event"]{title, date, location, description, signupUrl}`;
 
 function mergeArray<T>(fallback: T[], incoming?: T[]) {
   return incoming && incoming.length > 0 ? incoming : fallback;
