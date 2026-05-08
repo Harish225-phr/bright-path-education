@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import NewsTicker from "@/components/NewsTicker";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProgramsSection from "@/components/ProgramsSection";
@@ -13,11 +14,19 @@ import ContactSection from "@/components/ContactSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
-import { SiteContentProvider } from "@/components/SiteContentProvider";
+import PageLoader from "@/components/PageLoader";
+import { useSiteContent } from "@/components/SiteContentProvider";
 
-const Index = () => (
-  <SiteContentProvider>
+const Index = () => {
+  const { isLoading } = useSiteContent();
+
+  if (isLoading) {
+    return <PageLoader />;
+  }
+
+  return (
     <main>
+      <NewsTicker />
       <Navbar />
       <HeroSection />
       <AnnouncementsSection />
@@ -34,7 +43,7 @@ const Index = () => (
       <Footer />
       <FloatingButtons />
     </main>
-  </SiteContentProvider>
-);
+  );
+};
 
 export default Index;

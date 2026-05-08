@@ -48,6 +48,16 @@ const Navbar = () => {
           >
             {content.navigation.ctaLabel}
           </a>
+          <a
+            href="https://admin.brightpath.edu.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-semibold transition-all hover:bg-primary/10 ${
+              isScrolled ? "border-primary text-primary" : "border-primary-foreground/50 text-primary-foreground hover:bg-white/10"
+            }`}
+          >
+            Login
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -79,6 +89,15 @@ const Navbar = () => {
             className="mt-2 block rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground"
           >
             {content.navigation.ctaLabel}
+          </a>
+          <a
+            href="https://admin.brightpath.edu.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMobileOpen(false)}
+            className="mt-2 block rounded-lg border border-primary px-5 py-2.5 text-center text-sm font-semibold text-primary"
+          >
+            Login to Portal
           </a>
         </div>
       )}
