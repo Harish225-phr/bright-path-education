@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { isSanityConfigured, sanityClient } from "@/lib/sanity";
-import { defaultSiteContent, mergeSiteContent, siteContentQuery, programsListQuery, testimonialsListQuery, galleryImagesQuery, teachersListQuery, eventsListQuery, type SiteContent } from "@/lib/siteContent";
+import { defaultSiteContent, mergeSiteContent, siteContentQuery, programsListQuery, testimonialsListQuery, galleryImagesQuery, teachersListQuery, eventsListQuery, announcementsListQuery, type SiteContent } from "@/lib/siteContent";
 
 type SiteContentContextValue = {
   content: SiteContent;
@@ -27,13 +27,14 @@ export const SiteContentProvider = ({ children }: { children: ReactNode }) => {
       setIsLoading(true);
 
       try {
-        const [siteData, programs, testimonials, gallery, teachers, events] = await Promise.all([
+        const [siteData, programs, testimonials, gallery, teachers, events, announcements] = await Promise.all([
           sanityClient.fetch<Partial<SiteContent> | null>(siteContentQuery),
           sanityClient.fetch<any[]>(programsListQuery),
           sanityClient.fetch<any[]>(testimonialsListQuery),
           sanityClient.fetch<any[]>(galleryImagesQuery),
           sanityClient.fetch<any[]>(teachersListQuery),
           sanityClient.fetch<any[]>(eventsListQuery),
+          sanityClient.fetch<any[]>(announcementsListQuery),
         ]);
 
         if (!cancelled) {
@@ -46,6 +47,7 @@ export const SiteContentProvider = ({ children }: { children: ReactNode }) => {
             galleryImages: gallery && gallery.length > 0 ? gallery : merged.galleryImages,
             teachersList: teachers && teachers.length > 0 ? teachers : merged.teachersList,
             eventsList: events && events.length > 0 ? events : merged.eventsList,
+            announcementsList: announcements && announcements.length > 0 ? announcements : merged.announcementsList,
           } as SiteContent;
 
           setContent(final);

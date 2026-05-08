@@ -74,6 +74,7 @@ export type SiteContent = {
   galleryImages?: Array<{ image?: string; alt?: string; caption?: string }>;
   teachersList?: Array<{ name: string; title?: string; bio?: string; photoUrl?: string }>;
   eventsList?: Array<{ title: string; date?: string; location?: string; description?: string; signupUrl?: string }>;
+  announcementsList?: Array<{ title: string; slug?: { current?: string }; category?: string; imageUrl?: string; publishedAt?: string; featured?: boolean }>;
 };
 
 export const defaultSiteContent: SiteContent = {
@@ -215,6 +216,8 @@ export const galleryImagesQuery = `*[_type == "galleryImage"]{"imageUrl": image.
 export const teachersListQuery = `*[_type == "teacher"]{name, title, bio, "photoUrl": photo.asset->url, email, phone}`;
 
 export const eventsListQuery = `*[_type == "event"]{title, date, location, description, signupUrl}`;
+
+export const announcementsListQuery = `*[_type == "announcement"] | order(publishedAt desc) {title, slug, category, "imageUrl": image.asset->url, publishedAt, featured}`;
 
 function mergeArray<T>(fallback: T[], incoming?: T[]) {
   return incoming && incoming.length > 0 ? incoming : fallback;
